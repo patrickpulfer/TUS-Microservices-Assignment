@@ -1,9 +1,24 @@
 spring:
+  application:
+    name: API-GATEWAY
   cloud:
     config:
+      discovery:
+        enabled: true
       server:
         git:
-          uri: https://github.com/patrickpulfer/TUS-Microservices-Assignment
+          uri: https://github.com/patrickpulfer/TUS-Microservices-Assignment.git
           clone-on-start: true
           default-label: main
-          skip-ssl-validation=true:
+          skip-ssl-validation: true
+      fail-fast=true:
+
+# Eureka
+eureka:
+  client:
+    enabled: true
+    serviceUrl:
+      defaultZone: http://localhost:8081/eureka/
+  instance:
+    hostname: localhost
+    prefer-ip-address: true

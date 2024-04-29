@@ -27,7 +27,7 @@ spring:
           - id: token-service-register
             uri: lb://USER-SERVICE
             predicates:
-              - Path=/v1/api/user/register
+              - Path=/register
             filters:
               - AddResponseHeader=Social Media API Gateway, User Registration Service
 #              - name: CircuitBreaker
@@ -38,7 +38,7 @@ spring:
           - id: token-service-login
             uri: lb://USER-SERVICE
             predicates:
-              - Path=/v1/api/user/login
+              - Path=/login
             filters:
               - AddResponseHeader=Social Media API Gateway, User Login Service
 #              - name: CircuitBreaker
