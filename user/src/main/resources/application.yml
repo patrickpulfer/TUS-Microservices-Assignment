@@ -1,0 +1,47 @@
+server:
+  #port: 8082
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type: TRACE
+
+
+# Database
+spring:
+  application:
+    name: user-service
+
+  datasource:
+    url: jdbc:mariadb://192.168.1.100:3306/user?useSSL=false
+    username: remoteuser
+    password: password
+    driver-class-name: org.mariadb.jdbc.Driver
+
+
+# JPA
+jpa:
+  generate-ddl: true
+  hibernate:
+    ddl-auto: create #set to none later
+    #ddl-auto: create-drop #set to none later
+  show-sql: true
+  properties:
+    hibernate:
+      format_sql: true
+  #database: mariadb
+  #database-platform: org.hibernate.dialect.MariaDBDialect
+
+
+# Eureka
+eureka:
+  client:
+    enabled: true
+    #fetchRegistry: 'false'
+    #registerWithEureka: 'false'
+    serviceUrl:
+      defaultZone: http://localhost:8081/eureka/
+  instance:
+    hostname: localhost
