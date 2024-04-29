@@ -1,0 +1,58 @@
+## Server
+server:
+  port: 8080
+
+
+# Spring Config
+spring:
+  application:
+    name: API-GATEWAY
+  cloud:
+    circuitbreaker:
+      resilience4j:
+        config:
+          default:
+            slidingWindowSize: 100
+            permittedNumberOfCallsInHalfOpenState: 10
+            waitDurationInOpenState: 10000
+            failureRateThreshold: 50
+            eventConsumerBufferSize: 10
+    config:
+      enabled=false:
+    discovery:
+      enabled: true
+    gateway:
+      mvc:
+        routes:
+          - id: token-service-register
+            uri: lb://USER-SERVICE
+            predicates:
+              - Path=/v1/api/user/register
+            filters:
+              - AddResponseHeader=Social Media API Gateway, User Registration Service
+#              - name: CircuitBreaker
+#              - args:
+#                  - name: user-service
+#                  - fallbackUri: forward:/userServiceFallBack
+
+          - id: token-service-login
+            uri: lb://USER-SERVICE
+            predicates:
+              - Path=/v1/api/user/login
+            filters:
+              - AddResponseHeader=Social Media API Gateway, User Login Service
+#              - name: CircuitBreaker
+#              - args:
+#                  - name: user-service
+#                  - fallbackUri: forward:/userServiceFallBack
+
+
+# Eureka
+eureka:
+  client:
+    enabled: true
+    serviceUrl:
+      defaultZone: http://localhost:8081/eureka/
+  instance:
+    hostname: localhost
+    prefer-ip-address: true
